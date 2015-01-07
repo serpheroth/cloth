@@ -1,0 +1,23 @@
+all: clean cloth
+
+cloth: cloth.o objloader.o object.o box.o util.o
+	g++ cloth.o objloader.o object.o box.o util.o -framework OpenGL -framework Cocoa -framework IOkit -framework CoreVideo -lglfw3 -lGLEW -O2 -o cloth -std=c++11
+
+cloth.o: object.h box.h cloth.cpp
+	g++ cloth.cpp -Wall -O2 -c -std=c++11 
+
+box.o: box.h box.cpp
+	g++ box.cpp -Wall -O2 -c -std=c++11
+
+object.o: objloader.h object.h object.cpp
+	g++ object.cpp -Wall -O2 -c -std=c++11
+
+objloader.o: objloader.h objloader.cpp
+	g++ objloader.cpp -Wall -O2 -c -std=c++11
+
+util.o: util.h util.cpp
+	g++ util.cpp -Wall -O2 -c -std=c++11
+
+clean:
+	rm -rf cloth cloth.o box.o object.o objloader.o util.o
+
